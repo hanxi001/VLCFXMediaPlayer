@@ -1,8 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
+<?import java.net.*?>
 <?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
+<?scenebuilder-background-color 0xdfdfdfff?>
 
-<fx:root type="javafx.scene.layout.AnchorPane" id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml" />
+<fx:root type="javafx.scene.layout.AnchorPane" id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: transparent;" xmlns:fx="http://javafx.com/fxml">
+  <children>
+    <StackPane id="StackPane" fx:id="imageHolder" style="-fx-background-color:black;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+      <children>
+        <ImageView fx:id="videoImage" fitHeight="380.0" fitWidth="580.0" pickOnBounds="true" preserveRatio="false">
+          <effect>
+            <DropShadow />
+          </effect>
+          <image>
+            <Image url="@../images/Desert.jpg" />
+          </image>
+        </ImageView>
+        <VBox id="VBox" fx:id="controlBarHolder" alignment="CENTER" maxHeight="-Infinity" spacing="5.0" StackPane.alignment="BOTTOM_CENTER">
+          <children>
+            <StackPane id="StackPane">
+              <children>
+                <HBox fx:id="controlBar" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="24.0" prefWidth="-1.0" spacing="-2.0" style="">
+                  <children>
+                    <Button fx:id="backButton" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="35.0" minWidth="41.730712890625" mnemonicParsing="false" prefHeight="35.0" prefWidth="42.0" style="" text="" visible="true" />
+                    <Button fx:id="stopButton" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="35.0" minWidth="42.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="42.0" style="" text="" visible="true" />
+                    <Button fx:id="playButton" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="35.0" minWidth="42.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="42.0" style="" text="" />
+                    <Button fx:id="pauseButton" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="35.0" minWidth="41.730712890625" mnemonicParsing="false" prefHeight="35.000099999997474" prefWidth="42.0" style="" text="" visible="true" />
+                    <Button fx:id="forwardButton" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="35.0" minWidth="42.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="42.0" style="" text="" visible="true" />
+                    <Button id="loadButton" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" text="Button" />
+                  </children>
+                  <effect>
+                    <Glow />
+                  </effect>
+                </HBox>
+                <Pane fx:id="seResize" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="13.0" prefWidth="13.0" StackPane.alignment="BOTTOM_RIGHT">
+                  <children>
+                    <ImageView fitHeight="10.0" fitWidth="10.0" layoutX="2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                        <Image url="@../images/resizeSE.png" />
+                      </image>
+                    </ImageView>
+                  </children>
+                </Pane>
+                <Label fx:id="nameLabel" prefWidth="170.0" text="Label" textFill="WHITE" StackPane.alignment="TOP_LEFT" />
+              </children>
+            </StackPane>
+          </children>
+        </VBox>
+        <StackPane id="StackPane" fx:id="dragBar" maxHeight="-Infinity" maxWidth="-1.0" StackPane.alignment="TOP_CENTER">
+          <children>
+            <HBox fx:id="frameControls" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="-1.0" prefWidth="-1.0" spacing="1.0" StackPane.alignment="TOP_RIGHT">
+              <children>
+                <Button fx:id="minimizeButton" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="13.0" prefWidth="13.0" style="-fx-background-color: transparent;" text="" />
+                <Button fx:id="maximizeButton" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="13.0" prefWidth="13.0" style="-fx-background-color: transparent;" text="" />
+                <Button fx:id="exitButton" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="13.0" prefWidth="13.0" style="-fx-background-color: transparent;" text="" />
+              </children>
+            </HBox>
+          </children>
+        </StackPane>
+      </children>
+      <effect>
+        <DropShadow spread="0.3" />
+      </effect>
+      <padding>
+        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+      </padding>
+    </StackPane>
+  </children>
+  <stylesheets>
+    <URL value="@../images/controlbar/controlBar.css" />
+  </stylesheets>
+</fx:root>

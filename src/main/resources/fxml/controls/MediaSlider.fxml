@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<fx:root type="javafx.scene.layout.StackPane" id="StackPane" maxHeight="-Infinity" maxWidth="-1.0" minHeight="-Infinity" minWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" xmlns:fx="http://javafx.com/fxml">
+  <children>
+    <ProgressBar fx:id="progressBar" maxWidth="-Infinity" minHeight="5.0" minWidth="-Infinity" prefHeight="5.0" prefWidth="-1.0" progress="0.0" StackPane.alignment="CENTER">
+      <StackPane.margin>
+        <Insets />
+      </StackPane.margin>
+    </ProgressBar>
+    <Slider fx:id="slider" maxWidth="-Infinity" minWidth="-Infinity" visible="true" StackPane.alignment="CENTER" />
+  </children>
+  <stylesheets>
+    <URL value="@../../styles/style.css" />
+  </stylesheets>
+</fx:root>

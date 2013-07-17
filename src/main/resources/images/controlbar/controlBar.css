@@ -1,0 +1,112 @@
+/* 
+    Document   : controlBar
+    Created on : Jul 16, 2013, 1:10:03 PM
+    Author     : Dub
+    Description:
+        Purpose of the stylesheet follows.
+*/
+.button {
+    -fx-skin: "com.sun.javafx.scene.control.skin.ButtonSkin";    
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;    
+    -fx-padding: 0;
+    -fx-text-fill: -fx-text-base-color;
+    -fx-alignment: CENTER;
+    -fx-content-display: graphic-only;
+}
+
+#playButton{
+    -fx-background-size: 42 35;
+	-fx-background-color: null;
+   -fx-background-image:url("play_default.png");     
+}
+#playButton .button:hover{
+   -fx-background-image:url("play_hover.png");     
+}
+#playButton .button:armed{
+   -fx-background-image:url("play_pressed.png");     
+}
+#pauseButton{
+    -fx-background-size: 42 35;
+	-fx-background-color: null;
+   -fx-background-image:url("pause_default.png");    
+}
+#pauseButton .button:hover{
+   -fx-background-image:url("pause_hover.png"); 
+}
+#pauseButton .button:armed{
+   -fx-background-image:url("pause_pressed.png");     
+}
+#backButton{
+    -fx-background-size: 42 35;
+	-fx-background-color: null;
+   -fx-background-image:url("back_default.png"); 
+}
+#backButton .button:hover{
+   -fx-background-image:url("back_hover.png"); 
+}
+#backButton .button:armed{
+   -fx-background-image:url("back_pressed.png");     
+}
+#forwardButton{
+    -fx-background-size: 42 35;
+	-fx-background-color: null;
+   -fx-background-image:url("forward_default.png"); 
+}
+#forwardButton .button:hover{
+   -fx-background-image:url("forward_hover.png");     
+}
+#forwardButton .button:armed{
+   -fx-background-image:url("forward_pressed.png"); 
+}
+#stopButton{
+    -fx-background-size: 42 35;
+	-fx-background-color: null;
+   -fx-background-image:url("stop_default.png"); 
+}
+#stopButton .button:hover{
+   -fx-background-image:url("stop_hover.png");    
+}
+#stopButton .button:armed{
+   -fx-background-image:url("stop_pressed.png");   
+}
+#minimizeButton{
+    -fx-background-size: 13 13;
+	-fx-background-color: null;
+    -fx-background-image:url("window-min.png");
+}
+#minimizeButton .button:hover{
+    -fx-background-image:url("window-min-over.png");    
+}
+#maximizeButton{
+    -fx-background-size: 13 13;
+	-fx-background-color: null;
+    -fx-background-image:url("window-expand.png");
+}
+#maximizeButton .button:hover{
+    -fx-background-image:url("window-expand-over.png");
+}
+#exitButton{
+    -fx-background-size: 13 13;
+	-fx-background-color: null;
+    -fx-background-image:url("window-close.png");
+}
+#exitButton .button:hover{
+    -fx-background-image:url("window-close-over.png");
+}
+#loadButton{
+	-fx-background-size: 35 35;
+	-fx-background-color: null;
+    -fx-background-image:url("load_default.png");
+}
+#loadButton .button:hover{
+	-fx-background-image:url("load_hover.png");
+}
+#loadButton .button:armed{
+	-fx-background-image:url("load_pressed.png");
+}
+
+
+
+
+

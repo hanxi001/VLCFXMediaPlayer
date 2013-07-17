@@ -4,8 +4,13 @@
  */
 package org.jtp.vlcfxmediaplayer;
 
+
 import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  *
@@ -22,6 +27,13 @@ public class VLCFXMediaPlayer extends Application{
 
     @Override
     public void start(Stage stage) throws Exception {        
+        MainWindow window = new MainWindow(stage);
+        stage.initStyle(StageStyle.TRANSPARENT);      
+        
+        Scene scene = new Scene(window);
+        scene.setFill(Color.TRANSPARENT);
+        stage.setScene(scene);
+        stage.show();
         
     }
     
