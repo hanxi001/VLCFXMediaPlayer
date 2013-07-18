@@ -5,19 +5,12 @@
 package org.jtp.vlcfxmediaplayer;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.net.URL;
 import java.nio.ByteBuffer;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.animation.Animation.Status;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -37,7 +30,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import org.jtp.vlcfxmediaplayer.components.MediaSlider;
 import uk.co.caprica.vlcj.component.DirectMediaPlayerComponent;
 import uk.co.caprica.vlcj.player.MediaPlayer;
@@ -116,7 +108,8 @@ public class MainWindow extends AnchorPane implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        initComponents();      
+        initComponents();     
+        
     }    
     private void initComponents(){
         
