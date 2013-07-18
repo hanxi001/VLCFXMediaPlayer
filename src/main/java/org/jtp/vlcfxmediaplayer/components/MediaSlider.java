@@ -18,20 +18,20 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * FXML Controller class
  *
  * @author Dub
  */
-public class MediaSlider extends StackPane implements Initializable {
+public class MediaSlider extends AnchorPane implements Initializable {
     private long mediaLength = 0;
     
     public MediaSlider(long max){
         this.mediaLength = max;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/controls/MediaSlider.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/controls/Slider2.fxml"));
             loader.setController(this);
             loader.setRoot(this);
             loader.load();
@@ -59,13 +59,10 @@ public class MediaSlider extends StackPane implements Initializable {
         });
     } 
 
-    @Override
-    public void setWidth(double d) {
-        super.setWidth(d);
-        slider.setPrefWidth(d);
-        progressBar.setPrefWidth(d);//To change body of generated methods, choose Tools | Templates.
+    public Slider getSlider() {
+        return slider;
     }
-    
+        
     public final void setMax(double d) {
         mediaLength = (long)d;
         slider.setMax(mediaLength);

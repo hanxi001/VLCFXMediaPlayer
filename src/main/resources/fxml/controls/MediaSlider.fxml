@@ -8,14 +8,18 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<fx:root type="javafx.scene.layout.StackPane" id="StackPane" maxHeight="-Infinity" maxWidth="-1.0" minHeight="-Infinity" minWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" xmlns:fx="http://javafx.com/fxml">
+<fx:root type="javafx.scene.layout.StackPane" id="StackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" xmlns:fx="http://javafx.com/fxml">
   <children>
-    <ProgressBar fx:id="progressBar" maxWidth="-Infinity" minHeight="5.0" minWidth="-Infinity" prefHeight="5.0" prefWidth="-1.0" progress="0.0" StackPane.alignment="CENTER">
-      <StackPane.margin>
-        <Insets />
-      </StackPane.margin>
-    </ProgressBar>
-    <Slider fx:id="slider" maxWidth="-Infinity" minWidth="-Infinity" visible="true" StackPane.alignment="CENTER" />
+    <HBox id="HBox" alignment="CENTER" maxWidth="-1.0" spacing="5.0" StackPane.alignment="CENTER">
+      <children>
+        <ProgressBar fx:id="progressBar" maxHeight="-Infinity" maxWidth="-1.0" minHeight="-Infinity" minWidth="-1.0" prefHeight="5.0" prefWidth="-1.0" progress="0.0" HBox.hgrow="ALWAYS" />
+      </children>
+    </HBox>
+    <HBox id="HBox" alignment="CENTER" spacing="5.0" StackPane.alignment="CENTER">
+      <children>
+        <Slider fx:id="slider" maxWidth="-Infinity" minWidth="-Infinity" visible="true" HBox.hgrow="ALWAYS" />
+      </children>
+    </HBox>
   </children>
   <stylesheets>
     <URL value="@../../styles/style.css" />
