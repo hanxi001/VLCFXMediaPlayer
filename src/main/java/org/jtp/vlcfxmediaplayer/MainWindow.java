@@ -5,15 +5,16 @@
 package org.jtp.vlcfxmediaplayer;
 
 import com.sun.jna.Memory;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.ByteBuffer;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -36,7 +37,10 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
+import org.apache.log4j.Logger;
 import org.jtp.vlcfxmediaplayer.components.MediaSlider;
 import uk.co.caprica.vlcj.binding.internal.libvlc_media_t;
 import uk.co.caprica.vlcj.component.DirectMediaPlayerComponent;
@@ -53,6 +57,7 @@ import uk.co.caprica.vlcj.player.direct.DirectMediaPlayer;
 public class MainWindow extends AnchorPane implements Initializable {
 
     private Stage stage;
+    private static Logger logger = Logger.getLogger(MainWindow.class);
 
     public MainWindow(Stage stage) {
         this.stage = stage;
@@ -62,7 +67,7 @@ public class MainWindow extends AnchorPane implements Initializable {
             loader.setRoot(this);
             loader.load();
         } catch (IOException ex) {
-            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+            logger.fatal(ex);
         }
     }
     
@@ -82,6 +87,8 @@ public class MainWindow extends AnchorPane implements Initializable {
     private Button forwardButton;
     @FXML
     private Button stopButton;
+    @FXML 
+    private Button loadButton;
     @FXML
     private HBox frameControls;
     @FXML
@@ -122,6 +129,11 @@ public class MainWindow extends AnchorPane implements Initializable {
     private double dragOffsetX;
     private double stageMinWidth;
     private double stageMinHeight;
+    
+    private SimpleBooleanProperty playingProperty;
+    private SimpleBooleanProperty pausedProperty;
+    private SimpleStringProperty mediaNameProperty;
+    
 
     /**
      * Initializes the controller class.
@@ -131,7 +143,7 @@ public class MainWindow extends AnchorPane implements Initializable {
         // TODO
         initWindowComponents();
         initComponents();
-
+        initMediaComponents();
     }
 
     private void initWindowComponents(){
@@ -140,6 +152,7 @@ public class MainWindow extends AnchorPane implements Initializable {
         
         videoImage.fitWidthProperty().bind(imageHolder.widthProperty());
         videoImage.fitHeightProperty().bind(imageHolder.heightProperty());
+        
         
         dragBar.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
@@ -204,6 +217,7 @@ public class MainWindow extends AnchorPane implements Initializable {
         HBox.setHgrow(slider, Priority.ALWAYS);
         slider.setPrefWidth(sliderHolder.getMaxWidth());
         sliderHolder.getChildren().addAll(slider);
+        slider.valueProperty().addListener(new TimeChangeListener());
         
     }
     private void initLabels() {
@@ -211,6 +225,12 @@ public class MainWindow extends AnchorPane implements Initializable {
     }
 
     private void initButtons() {
+        loadButton.setOnAction(new EventHandler<ActionEvent>() {
+
+            public void handle(ActionEvent t) {
+                loadMedia();
+            }
+        });
         exitButton.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent t) {
                 System.exit(0);
@@ -235,21 +255,25 @@ public class MainWindow extends AnchorPane implements Initializable {
     }
 
     private void initMediaComponents() {
-        this.imgWidth = videoImage.getFitWidth();
-        this.imgHeight = videoImage.getFitHeight();
+        imgWidth = 500;
+        imgHeight = imgWidth / 1.78;
 
-        this.vidImage = new WritableImage((int) imgWidth, (int) imgHeight);
-        this.pixelWriter = vidImage.getPixelWriter();
-        this.byteBgraInstance = PixelFormat.getByteBgraPreInstance();
+        vidImage = new WritableImage((int)imgWidth, (int)imgHeight);
+        pixelWriter = vidImage.getPixelWriter();
+        
+        videoImage.setImage(vidImage);
+        
+        byteBgraInstance = PixelFormat.getByteBgraPreInstance();
         mediaComponent = new DirectMediaPlayerComponent("RV32", (int) imgWidth, (int) imgHeight, (int) imgWidth * 4) {
             @Override
             public void display(DirectMediaPlayer mediaPlayer, Memory[] nativeBuffers, BufferFormat bufferFormat) {
                 super.display(mediaPlayer, nativeBuffers, bufferFormat);
-                ByteBuffer byteBuffer = nativeBuffers[0].getByteBuffer(0, nativeBuffers[0].size());
+                
+                ByteBuffer byteBuffer = nativeBuffers[0].getByteBuffer(0, nativeBuffers[0].size());                
                 pixelWriter.setPixels(0, 0, (int) imgWidth, (int) imgHeight, byteBgraInstance, byteBuffer, (int) imgWidth * 4);
             }
         };
-        this.player = mediaComponent.getMediaPlayer();
+        player = mediaComponent.getMediaPlayer();
         player.addMediaPlayerEventListener(new MediaPlayerEventListener() {
             public void mediaChanged(MediaPlayer mp, libvlc_media_t l, String string) {
             }
@@ -278,7 +302,13 @@ public class MainWindow extends AnchorPane implements Initializable {
             public void finished(MediaPlayer mp) {
             }
 
-            public void timeChanged(MediaPlayer mp, long l) {
+            public void timeChanged(MediaPlayer mp, final long l) {
+                Platform.runLater(new Runnable() {
+                    public void run() {
+                        slider.setValue(l);
+                    }
+                });
+                
             }
 
             public void positionChanged(MediaPlayer mp, float f) {
@@ -336,6 +366,24 @@ public class MainWindow extends AnchorPane implements Initializable {
             public void endOfSubItems(MediaPlayer mp) {
             }
         });
+    }
+    
+    private void loadMedia(){
+        FileChooser fc = new FileChooser();
+        fc.getExtensionFilters().add(new ExtensionFilter("Video","*.mp4", "*.avi", "*.mkv"));
+        File f = fc.showOpenDialog(null);
+        if(f != null){
+            player.prepareMedia(f.getAbsolutePath());
+            
+            if(player.isPlaying()){
+                player.stop();
+            }
+            mediaLength = player.getLength();            
+            slider.getSlider().setMax(mediaLength);            
+            nameLabel.setText(player.getMediaMeta().getTitle());
+            
+            player.play();
+        }
     }
     //==========================================================================
     private class TimeChangeListener implements InvalidationListener {

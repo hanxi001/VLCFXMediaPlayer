@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?scenebuilder-background-color 0xdfdfdfff?>
+
+<fx:root type="javafx.scene.layout.AnchorPane" id="controlBody" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0" prefWidth="550.0" style="" xmlns:fx="http://javafx.com/fxml">
+  <children>
+    <HBox id="HBox" alignment="CENTER" layoutY="7.0" spacing="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+      <children>
+        <Label id="timeLabel" fx:id="currentTimeLabel" alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="60.0" text="00:00:00" HBox.hgrow="ALWAYS" />
+        <AnchorPane id="AnchorPane" HBox.hgrow="ALWAYS">
+          <children>
+            <ProgressBar fx:id="progressBar" layoutY="5.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="5.0" prefWidth="-1.0" progress="0.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0" />
+            <Slider fx:id="timeSlider" layoutY="0.5" prefWidth="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+          </children>
+        </AnchorPane>
+        <Label id="timeLabel" fx:id="totalTimeLabel" alignment="CENTER" contentDisplay="LEFT" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="60.0" text="00:00:00" HBox.hgrow="ALWAYS" />
+      </children>
+    </HBox>
+    <HBox layoutX="14.0" layoutY="21.0" maxHeight="-Infinity" prefHeight="36.0" prefWidth="-1.0" spacing="-3.0">
+      <children>
+        <Button fx:id="backButton" maxHeight="-Infinity" mnemonicParsing="false" prefHeight="36.0" prefWidth="43.0" text="Button" />
+        <Button fx:id="stopButton" mnemonicParsing="false" prefHeight="36.0" prefWidth="43.0" text="Button" />
+        <Button fx:id="playButton" mnemonicParsing="false" prefHeight="36.0" prefWidth="43.0" text="Button" />
+        <Button fx:id="pauseButton" mnemonicParsing="false" prefHeight="36.0" prefWidth="43.0" text="Button" />
+        <Button fx:id="forwardButton" mnemonicParsing="false" prefHeight="36.0" prefWidth="43.0" text="Button" />
+        <Button fx:id="loadButton" mnemonicParsing="false" prefHeight="36.0" text="Button" />
+      </children>
+    </HBox>
+    <Label fx:id="titleLabel" alignment="CENTER" layoutX="261.0" layoutY="23.0" prefWidth="279.0" text="Video Title will be Here" />
+    <AnchorPane id="AnchorPane" layoutX="261.0" layoutY="43.0">
+      <children>
+        <ProgressBar fx:id="volProgressBar" layoutY="4.5" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="5.0" prefWidth="95.0" progress="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+        <Slider fx:id="volSlider" layoutY="0.0" prefWidth="95.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+      </children>
+    </AnchorPane>
+  </children>
+  <effect>
+    <Lighting>
+      <bumpInput>
+        <Shadow />
+      </bumpInput>
+      <light>
+        <javafx.scene.effect.Light.Distant />
+      </light>
+    </Lighting>
+  </effect>
+  <stylesheets>
+    <URL value="@../../images/controlbar/controlBar.css" />
+    <URL value="@../../images/controlbar/style.css" />
+  </stylesheets>
+</fx:root>
