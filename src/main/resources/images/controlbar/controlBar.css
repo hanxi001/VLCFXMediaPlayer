@@ -10,8 +10,8 @@
 }
 #controlBody{
     -fx-background-color: ladder(rgba(255,255,255,0.5), rgba(255,255,255,0.5) 49%, rgba(0,0,0,0.5) 50%);/*ladder(rgba(0,0,0,0.5),linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.9) 100%) 0%, #ffffff 50%);*/
-    -fx-background-radius: 10;
-    -fx-border-radius: 10;
+    -fx-background-radius: 100;
+    -fx-border-radius: 100;
     -fx-border-width: 1;
     -fx-border-color: linear-gradient(to right, rgba(255,255,255,0.5) 0%, rgba(0,0,0,0.5) 100%);
     
@@ -27,15 +27,17 @@
 }
 
 #playButton{
-    -fx-background-size: 42 35;
-	-fx-background-color: null;
-   -fx-background-image:url("play_default.png");     
+    -fx-background-size: 30 35;
+    -fx-background-color: rgba(255,255,255,0.5);
+    -fx-background-image:url("play_default.png"); 
+    -fx-background-repeat:no-repeat;
+    
 }
 #playButton .button:hover{
-   -fx-background-image:url("play_hover.png");     
+    -fx-background-image:url("play_hover.png");     
 }
 #playButton .button:armed{
-   -fx-background-image:url("play_pressed.png");     
+    -fx-background-image:url("play_pressed.png");     
 }
 #pauseButton{
     -fx-background-size: 42 35;

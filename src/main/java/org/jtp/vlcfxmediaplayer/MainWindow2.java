@@ -25,7 +25,6 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
-import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelFormat;
@@ -87,25 +86,29 @@ public class MainWindow2 extends AnchorPane implements Initializable {
     private Button exitButton;
     @FXML
     private Pane seResize;
+    
     private ControlPanel controls;
-    private Group hidableComponents;
+    
     private WritableImage vidImage;
     private PixelWriter pixelWriter;
     private WritablePixelFormat<ByteBuffer> byteBgraInstance;
     private double imgWidth;
     private double imgHeight;
+    
     private DirectMediaPlayerComponent mediaComponent;
     private MediaPlayer player;
     private long mediaLength;
     private boolean isPaused;
+    
     private double mouX;
     private double mouY;
     private double dragOffsetX;
-    private double stageMinWidth = 600;
-    private double stageMinHeight = stageMinWidth / 1.78;
+    private static final double stageMinWidth = 600;
+    private static final double stageMinHeight = stageMinWidth / 1.78;
+    
     private MouseNotMovedHandler mouseNotMoved;
-    private ParallelTransition transition;
-
+    private static ParallelTransition fadeOutTransition;
+    private static ParallelTransition fadeInTransition;
     /**
      * Initializes the controller class.
      */
@@ -116,6 +119,34 @@ public class MainWindow2 extends AnchorPane implements Initializable {
         initMediaComponents();
         initStageBindings();
         initMouseEvents();
+        fadeInTransition = ParallelTransitionBuilder.create()
+                        .children(
+                        FadeTransitionBuilder.create()
+                        .node(dragBar)
+                        .toValue(1.0)
+                        .duration(Duration.millis(200))
+                        .interpolator(Interpolator.EASE_OUT)
+                        .build(),
+                        FadeTransitionBuilder.create()
+                        .node(controls)
+                        .toValue(1.0)
+                        .duration(Duration.millis(200))
+                        .interpolator(Interpolator.EASE_OUT)
+                        .build()).build();
+        fadeOutTransition = ParallelTransitionBuilder.create()
+                        .children(
+                        FadeTransitionBuilder.create()
+                        .node(dragBar)
+                        .toValue(0.0)
+                        .duration(Duration.seconds(3))
+                        .interpolator(Interpolator.EASE_OUT)
+                        .build(),
+                        FadeTransitionBuilder.create()
+                        .node(controls)
+                        .toValue(0.0)
+                        .duration(Duration.seconds(3))
+                        .interpolator(Interpolator.EASE_OUT)
+                        .build()).build();
     }
 
     private void initMouseEvents() {
@@ -138,47 +169,19 @@ public class MainWindow2 extends AnchorPane implements Initializable {
         setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent t) {
-                if (transition != null) {
-                    transition.stop();
+                if (fadeOutTransition != null) {
+                    fadeOutTransition.stop();
                 }
-                transition = ParallelTransitionBuilder.create()
-                        .children(
-                        FadeTransitionBuilder.create()
-                        .node(dragBar)
-                        .toValue(1.0)
-                        .duration(Duration.millis(200))
-                        .interpolator(Interpolator.EASE_OUT)
-                        .build(),
-                        FadeTransitionBuilder.create()
-                        .node(controls)
-                        .toValue(1.0)
-                        .duration(Duration.millis(200))
-                        .interpolator(Interpolator.EASE_OUT)
-                        .build()).build();
-                transition.play();
+                fadeInTransition.play();
             }
         });
         setOnMouseExited(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent t) {
-                if (transition != null) {
-                    transition.stop();
-                }
-                transition = ParallelTransitionBuilder.create()
-                        .children(
-                        FadeTransitionBuilder.create()
-                        .node(dragBar)
-                        .toValue(0.0)
-                        .duration(Duration.seconds(3))
-                        .interpolator(Interpolator.EASE_OUT)
-                        .build(),
-                        FadeTransitionBuilder.create()
-                        .node(controls)
-                        .toValue(0.0)
-                        .duration(Duration.seconds(3))
-                        .interpolator(Interpolator.EASE_OUT)
-                        .build()).build();
-                transition.play();
+                if (fadeInTransition != null) {
+                    fadeInTransition.stop();
+                }                
+                fadeOutTransition.play();
             }
         });
         setOnMousePressed(new EventHandler<MouseEvent>() {
@@ -331,46 +334,17 @@ public class MainWindow2 extends AnchorPane implements Initializable {
 
         public void handle(MouseEvent t) {
             if(true){       
-                setCursor(Cursor.DEFAULT);
-                transition = ParallelTransitionBuilder.create()
-                        .children(
-                        FadeTransitionBuilder.create()
-                        .node(dragBar)
-                        .toValue(1.0)
-                        .duration(Duration.millis(200))
-                        .interpolator(Interpolator.EASE_OUT)
-                        .build(),
-                        FadeTransitionBuilder.create()
-                        .node(controls)
-                        .toValue(1.0)
-                        .duration(Duration.millis(200))
-                        .interpolator(Interpolator.EASE_OUT)
-                        .build()).build();
-                transition.play();
+                setCursor(Cursor.DEFAULT);                
+                fadeInTransition.play();
             }
             timer.getKeyFrames().clear();
             frame = new KeyFrame(Duration.seconds(5), new EventHandler<ActionEvent>() {
                 public void handle(ActionEvent t) {
-                    if (transition != null) {
-                        transition.stop();
+                    if (fadeInTransition != null) {
+                        fadeInTransition.stop();
                     }
-                    transition = ParallelTransitionBuilder.create()
-                            .children(
-                            FadeTransitionBuilder.create()
-                            .node(dragBar)
-                            .toValue(0.0)
-                            .duration(Duration.seconds(3))
-                            .interpolator(Interpolator.EASE_OUT)
-                            .build(),
-                            FadeTransitionBuilder.create()
-                            .node(controls)
-                            .toValue(0.0)
-                            .duration(Duration.seconds(3))
-                            .interpolator(Interpolator.EASE_OUT)
-                            .build()).build();
-                    transition.play();
-                    transition.setOnFinished(new EventHandler<ActionEvent>() {
-
+                    fadeOutTransition.play();
+                    fadeOutTransition.setOnFinished(new EventHandler<ActionEvent>() {
                         public void handle(ActionEvent t) {
                             setCursor(Cursor.NONE);
                         }

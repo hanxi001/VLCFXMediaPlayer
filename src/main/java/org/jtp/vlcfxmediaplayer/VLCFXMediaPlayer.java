@@ -5,7 +5,6 @@
 package org.jtp.vlcfxmediaplayer;
 
 
-import com.sun.jna.NativeLibrary;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
@@ -48,7 +47,8 @@ public class VLCFXMediaPlayer extends Application{
             
             stage.initStyle(StageStyle.TRANSPARENT);            
             stage.setScene(scene);
-            stage.show();      
+            stage.show();  
+            
         }else{
             System.exit(0);
         }
